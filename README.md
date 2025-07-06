@@ -1,6 +1,5 @@
 # Minefetch
-Minecraft plugin like fastfetch / neofetch
-Shows information about the server
+A Minecraft plugin like FastFetch/NeoFetch shows information about the server.
 
 ![preview](demo.png)
 
