@@ -1,0 +1,22 @@
+name: Minefetch
+version: 1.0.0
+main: ru.uwuocha.minefetch.minefetch
+api-version: 1.21
+author: uwuocha
+description: "Плагин для отображения информации о сервере в стиле neofetch"
+website: "https://github.com/uwuocha/minefetch"
+
+permissions:
+  minefetch.use:
+    description: "Разрешение на использование команды /minefetch"
+    default: true
+  minefetch.reload:
+    description: "Разрешение на перезагрузку конфигурации"
+    default: op
+
+# Paper-specific settings
+paper-plugin:
+  loader: "JAVA"
+  main-class: "ru.uwuocha.minefetch.Minefetch"
+  bootstrap: false
+  has-open-classloader: false
