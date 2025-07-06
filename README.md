@@ -5,4 +5,5 @@ A Minecraft plugin like FastFetch/NeoFetch shows information about the server.
 
 Paper 1.21 +
 
-You can add an ascii.txt file to the plugin directory and edit messages on config.yml
+You can customize the default ASCII art by adding an ascii.txt file to the plugin directory. 
+You can also edit the displayed messages in the config.yml file.
