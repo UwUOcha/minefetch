@@ -1,11 +1,19 @@
+# Имя вашего плагина
 name: Minefetch
-version: 1.0.0
-main: ru.uwuocha.minefetch.minefetch
-api-version: 1.21
+# Версия плагина
+version: '2.1.0'
+# Главный класс, который будет загружен
+main: ru.uwuocha.minefetch.Minefetch
+# Версия API сервера, для которой написан плагин
+api-version: '1.21'
+# Автор плагина
 author: uwuocha
+# Описание
 description: "Плагин для отображения информации о сервере в стиле neofetch"
+# Веб-сайт
 website: "https://github.com/uwuocha/minefetch"
 
+# Регистрация прав доступа
 permissions:
   minefetch.use:
     description: "Разрешение на использование команды /minefetch"
@@ -13,10 +21,3 @@ permissions:
   minefetch.reload:
     description: "Разрешение на перезагрузку конфигурации"
     default: op
-
-# Paper-specific settings
-paper-plugin:
-  loader: "JAVA"
-  main-class: "ru.uwuocha.minefetch.Minefetch"
-  bootstrap: false
-  has-open-classloader: false
