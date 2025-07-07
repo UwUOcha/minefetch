@@ -33,77 +33,68 @@ public class InfoService {
      */
     public List<Component> getServerInfo() {
         List<Component> info = new ArrayList<>();
+        List<String> orderedModules = config.getOrderedModules();
 
-        // Название сервера
-        if (config.isModuleEnabled("server-name")) {
-            String serverName = plugin.getConfig().getString("server-name", "Minecraft Server");
-            info.add(config.getMessage("server-name", "&#199341&l{0}", serverName));
-            info.add(config.getMessage("separator", "&7{0}", "─".repeat(serverName.length())));
-        }
+        for (String moduleName : orderedModules) {
+            switch (moduleName) {
+                case "server-name":
+                    String serverName = plugin.getConfig().getString("server-name", "Minecraft Server");
+                    info.add(config.getMessage("server-name", "&#199341&l{0}", serverName));
+                    info.add(config.getMessage("separator", "&7{0}", "─".repeat(serverName.length())));
+                    break;
 
-        // Версия Minecraft
-        if (config.isModuleEnabled("minecraft-version")) {
-            info.add(config.getMessage("minecraft-version", "&#199341Minecraft&f: {0}", Bukkit.getMinecraftVersion()));
-        }
+                case "minecraft-version":
+                    info.add(config.getMessage("minecraft-version", "&#199341Minecraft&f: {0}", Bukkit.getMinecraftVersion()));
+                    break;
 
-        // Версия сервера (Paper, Spigot, etc.)
-        if (config.isModuleEnabled("server-version")) {
-            info.add(config.getMessage("server-version", "&#199341Сервер&f: {0}", Bukkit.getName() + " " + Bukkit.getBukkitVersion()));
-        }
+                case "server-version":
+                    info.add(config.getMessage("server-version", "&#199341Сервер&f: {0}", Bukkit.getName() + " " + Bukkit.getBukkitVersion()));
+                    break;
 
-        // Игроки
-        if (config.isModuleEnabled("players")) {
-            String players = Bukkit.getOnlinePlayers().size() + " / " + Bukkit.getMaxPlayers();
-            info.add(config.getMessage("players", "&#199341Игроки&f: {0}", players));
-        }
+                case "players":
+                    String players = Bukkit.getOnlinePlayers().size() + " / " + Bukkit.getMaxPlayers();
+                    info.add(config.getMessage("players", "&#199341Игроки&f: {0}", players));
+                    break;
 
-        // Плагины
-        if (config.isModuleEnabled("plugins")) {
-            info.add(config.getMessage("plugins", "&#199341Плагины&f: {0}", Bukkit.getPluginManager().getPlugins().length));
-        }
+                case "plugins":
+                    info.add(config.getMessage("plugins", "&#199341Плагины&f: {0}", Bukkit.getPluginManager().getPlugins().length));
+                    break;
 
-        // Память (RAM)
-        if (config.isModuleEnabled("memory")) {
-            Runtime runtime = Runtime.getRuntime();
-            long maxMemory = runtime.maxMemory() / 1048576; // в MB
-            long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1048576; // в MB
-            long percent = maxMemory > 0
-                    ? (usedMemory * 100) / maxMemory
-                    : 0;
-            info.add(config.getMessage("memory", "&#199341Память&f: {0}MB / {1}MB &7({2}%)", usedMemory, maxMemory, percent));
-        }
+                case "memory":
+                    Runtime runtime = Runtime.getRuntime();
+                    long maxMemory = runtime.maxMemory() / 1048576; // в MB
+                    long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1048576; // в MB
+                    long percent = maxMemory > 0 ? (usedMemory * 100) / maxMemory : 0;
+                    info.add(config.getMessage("memory", "&#199341Память&f: {0}MB / {1}MB &7({2}%)", usedMemory, maxMemory, percent));
+                    break;
 
-        // Нагрузка на CPU
-        if (config.isModuleEnabled("cpu")) {
-            OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
-            double cpuLoad = osBean.getProcessCpuLoad() * 100;
-            if (cpuLoad < 0) cpuLoad = 0; // Иногда может вернуть -1
-            info.add(config.getMessage("cpu", "&#199341CPU&f: {0} &7({1}%)", osBean.getArch(), String.format("%.1f", cpuLoad)));
-        }
+                case "cpu":
+                    OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+                    double cpuLoad = osBean.getProcessCpuLoad() * 100;
+                    if (cpuLoad < 0) cpuLoad = 0; // Иногда может вернуть -1
+                    info.add(config.getMessage("cpu", "&#199341CPU&f: {0} &7({1}%)", osBean.getArch(), String.format("%.1f", cpuLoad)));
+                    break;
 
-        // TPS
-        if (config.isModuleEnabled("tps")) {
-            // Используем нативный метод Paper API
-            double tps = Bukkit.getTPS()[0];
-            TextColor tpsColor = tps > 18.0 ? NamedTextColor.WHITE : tps > 15.0 ? NamedTextColor.YELLOW : NamedTextColor.RED;
-            Component tpsComponent = Component.text(String.format("%.2f", tps), tpsColor);
-            info.add(config.getMessage("tps", "&#199341TPS&f: ").append(tpsComponent));
-        }
+                case "tps":
+                    double tps = Bukkit.getTPS()[0];
+                    TextColor tpsColor = tps > 18.0 ? NamedTextColor.WHITE : tps > 15.0 ? NamedTextColor.YELLOW : NamedTextColor.RED;
+                    Component tpsComponent = Component.text(String.format("%.2f", tps), tpsColor);
+                    info.add(config.getMessage("tps", "&#199341TPS&f: ").append(tpsComponent));
+                    break;
 
-        // Аптайм
-        if (config.isModuleEnabled("uptime")) {
-            long uptimeMillis = System.currentTimeMillis() - serverStartTime;
-            info.add(config.getMessage("uptime", "&#199341Аптайм&f: {0}", formatUptime(uptimeMillis)));
-        }
+                case "uptime":
+                    long uptimeMillis = System.currentTimeMillis() - serverStartTime;
+                    info.add(config.getMessage("uptime", "&#199341Аптайм&f: {0}", formatUptime(uptimeMillis)));
+                    break;
 
-        // Миры
-        if (config.isModuleEnabled("worlds")) {
-            info.add(config.getMessage("worlds", "&#199341Миры&f: {0}", Bukkit.getWorlds().size()));
-        }
+                case "worlds":
+                    info.add(config.getMessage("worlds", "&#199341Миры&f: {0}", Bukkit.getWorlds().size()));
+                    break;
 
-        // Java версия
-        if (config.isModuleEnabled("java-version")) {
-            info.add(config.getMessage("java-version", "&#199341Java&f: {0}", System.getProperty("java.version")));
+                case "java-version":
+                    info.add(config.getMessage("java-version", "&#199341Java&f: {0}", System.getProperty("java.version")));
+                    break;
+            }
         }
 
         return info;
