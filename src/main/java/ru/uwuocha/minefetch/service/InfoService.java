@@ -7,7 +7,6 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import ru.uwuocha.minefetch.Minefetch;
 import ru.uwuocha.minefetch.config.PluginConfig;
-import ru.uwuocha.minefetch.util.MessageUtils;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;

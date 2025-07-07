@@ -6,39 +6,21 @@
 server-name: "Minecraft Server"
 
 # Модули отображения информации
+# Модули отображения информации и их порядок.
+# Модули, не перечисленные здесь, не будут отображаться.
+# Доступные модули: server-name, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
 modules:
-  # Показывать название сервера
-  server-name: true
-
-  # Показывать версию Minecraft
-  minecraft-version: true
-
-  # Показывать версию сервера (Paper/Spigot/etc)
-  server-version: true
-
-  # Показывать количество игроков онлайн
-  players: true
-
-  # Показывать количество плагинов
-  plugins: true
-
-  # Показывать использование памяти
-  memory: true
-
-  # Показывать использование CPU
-  cpu: true
-
-  # Показывать TPS (тики в секунду)
-  tps: true
-
-  # Показывать время работы сервера
-  uptime: true
-
-  # Показывать количество миров
-  worlds: true
-
-  # Показывать версию Java
-  java-version: true
+  - "server-name"
+  - "players"
+  - "minecraft-version"
+  - "server-version"
+  - "plugins"
+  - "memory"
+  - "cpu"
+  - "tps"
+  - "uptime"
+  - "worlds"
+  - "java-version"
 
 # Настройки отображения
 display:
