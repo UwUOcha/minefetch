@@ -7,3 +7,8 @@ Paper 1.21 +
 
 You can customize the default ASCII art by adding an ascii.txt file to the plugin directory. 
 You can also edit the displayed messages in the config.yml file.
+
+# Build from source
+ 1. clone repo
+ 2. mvn package
+ 3. enjoy
