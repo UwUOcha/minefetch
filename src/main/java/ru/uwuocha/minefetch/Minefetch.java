@@ -4,6 +4,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.uwuocha.minefetch.command.MinefetchCommand;
 import ru.uwuocha.minefetch.config.PluginConfig;
+import ru.uwuocha.minefetch.config.Lang;
 import ru.uwuocha.minefetch.service.InfoService;
 
 import java.lang.reflect.Field;
@@ -16,12 +17,17 @@ public final class Minefetch extends JavaPlugin {
 
     private PluginConfig pluginConfig;
     private InfoService infoService;
+    private Lang lang;
 
     @Override
     public void onEnable() {
         // Инициализация менеджера конфигурации
         this.pluginConfig = new PluginConfig(this);
-        pluginConfig.load(); // Загружаем конфигурацию и ascii.txt
+        pluginConfig.load();
+
+        // Инициализация языкового менеджера
+        this.lang = new Lang(this);
+        lang.load();
 
         // Инициализация сервиса для сбора информации
         this.infoService = new InfoService(this, pluginConfig);
@@ -46,7 +52,7 @@ public final class Minefetch extends JavaPlugin {
             // Создаем и регистрируем нашу команду
             commandMap.register(
                     "minefetch", // Имя команды, которое будет использоваться как префикс по умолчанию
-                    new MinefetchCommand(this, pluginConfig, infoService)
+                    new MinefetchCommand(this)
             );
             getLogger().info("Команда /minefetch успешно зарегистрирована.");
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -64,6 +70,14 @@ public final class Minefetch extends JavaPlugin {
     }
 
     /**
+     * Перезагружает конфигурацию плагина и языковые файлы.
+     */
+    public void reload() {
+        pluginConfig.load();
+        lang.load();
+    }
+
+    /**
      * Возвращает экземпляр менеджера конфигурации.
      * @return PluginConfig
      */
@@ -77,5 +91,13 @@ public final class Minefetch extends JavaPlugin {
      */
     public InfoService getInfoService() {
         return infoService;
+    }
+
+    /**
+     * Предоставляет доступ к языковым сообщениям.
+     * @return Экземпляр Lang.
+     */
+    public Lang getLang() {
+        return lang;
     }
 }

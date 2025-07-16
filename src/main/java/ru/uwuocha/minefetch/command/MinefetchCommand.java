@@ -6,8 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import ru.uwuocha.minefetch.Minefetch;
-import ru.uwuocha.minefetch.config.PluginConfig;
-import ru.uwuocha.minefetch.service.InfoService;
 import ru.uwuocha.minefetch.util.MessageUtils;
 
 import java.util.ArrayList;
@@ -20,10 +18,8 @@ import java.util.List;
 public class MinefetchCommand extends Command {
 
     private final Minefetch plugin;
-    private final PluginConfig config;
-    private final InfoService infoService;
 
-    public MinefetchCommand(Minefetch plugin, PluginConfig config, InfoService infoService) {
+    public MinefetchCommand(Minefetch plugin) {
         // Конструктор суперкласса для определения свойств команды
         super("minefetch",
                 "Показать информацию о сервере.",
@@ -31,8 +27,6 @@ public class MinefetchCommand extends Command {
                 List.of("mf", "fetch"));
 
         this.plugin = plugin;
-        this.config = config;
-        this.infoService = infoService;
 
         // Устанавливаем права доступа для команды
         setPermission("minefetch.use");
@@ -69,12 +63,12 @@ public class MinefetchCommand extends Command {
      */
     private void handleReload(CommandSender sender) {
         if (!sender.hasPermission("minefetch.reload")) {
-            sender.sendMessage(config.getMessage("no-permission", "&cУ вас нет прав для выполнения этой команды."));
+            sender.sendMessage(plugin.getLang().getMessage("no-permission"));
             return;
         }
 
-        config.load();
-        sender.sendMessage(config.getMessage("reload-success", "&aКонфигурация Minefetch успешно перезагружена!"));
+        plugin.reload();
+        sender.sendMessage(plugin.getLang().getMessage("reload-success"));
     }
 
     /**
@@ -83,10 +77,10 @@ public class MinefetchCommand extends Command {
     private void displayServerInfo(CommandSender sender) {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             // Асинхронно собираем данные
-            final List<Component> asciiComponents = config.getAsciiArtLines().stream()
+            final List<Component> asciiComponents = plugin.getPluginConfig().getAsciiArtLines().stream()
                     .map(MessageUtils::colorize)
                     .toList();
-            final List<Component> infoComponents = infoService.getServerInfo();
+            final List<Component> infoComponents = plugin.getInfoService().getServerInfo();
 
             // Формируем финальное сообщение
             List<Component> finalMessage = new ArrayList<>();

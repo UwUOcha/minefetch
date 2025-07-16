@@ -1,8 +1,6 @@
 package ru.uwuocha.minefetch.config;
 
-import net.kyori.adventure.text.Component;
 import ru.uwuocha.minefetch.Minefetch;
-import ru.uwuocha.minefetch.util.MessageUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +19,7 @@ public class PluginConfig {
     private List<String> asciiArtLines;
     private List<String> orderedModules;
     private Set<String> enabledModules;
+    private String lang;
 
     private static final List<String> DEFAULT_ASCII_ART = List.of(
             "&#199341████&#000000████&#199341████",
@@ -48,6 +47,7 @@ public class PluginConfig {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         loadAsciiArt();
+        this.lang = plugin.getConfig().getString("lang", "ru_ru");
         this.orderedModules = plugin.getConfig().getStringList("modules");
         this.enabledModules = new HashSet<>(this.orderedModules);
     }
@@ -97,17 +97,10 @@ public class PluginConfig {
     }
 
     /**
-     * Получает сообщение из config.yml и форматирует его с плейсхолдерами.
-     * @param key Ключ сообщения.
-     * @param defaultValue Значение по умолчанию.
-     * @param placeholders Заменители.
-     * @return Отформатированный компонент Component.
+     * Возвращает язык, выбранный в конфигурации.
+     * @return Строка с названием языка (например, "en_us").
      */
-    public Component getMessage(String key, String defaultValue, Object... placeholders) {
-        String messageTemplate = plugin.getConfig().getString("messages." + key, defaultValue);
-        for (int i = 0; i < placeholders.length; i++) {
-            messageTemplate = messageTemplate.replace("{" + i + "}", String.valueOf(placeholders[i]));
-        }
-        return MessageUtils.colorize(messageTemplate);
+    public String getLang() {
+        return lang;
     }
 }

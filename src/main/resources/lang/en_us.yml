@@ -1,0 +1,23 @@
+# English language file for Minefetch
+
+# Server header
+server-name: "&#199341&l{0}"
+
+# Separator under the header
+separator: "&7{0}"
+
+# Information lines
+minecraft-version: "&#199341Minecraft&f: {0}"
+server-version: "&#199341Server&f: {0}"
+players: "&#199341Players&f: {0}"
+plugins: "&#199341Plugins&f: {0}"
+memory: "&#199341Memory&f: {0}MB / {1}MB &7({2}%)"
+cpu: "&#199341CPU&f: {0} &7({1}%)"
+tps: "&#199341TPS&f: "
+uptime: "&#199341Uptime&f: {0}"
+worlds: "&#199341Worlds&f: {0}"
+java-version: "&#199341Java&f: {0}"
+
+# System messages
+reload-success: "&aMinefetch configuration reloaded!"
+no-permission: "&cYou do not have permission to reload the configuration!"

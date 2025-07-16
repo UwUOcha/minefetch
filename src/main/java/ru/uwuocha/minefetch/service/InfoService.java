@@ -39,25 +39,25 @@ public class InfoService {
             switch (moduleName) {
                 case "server-name":
                     String serverName = plugin.getConfig().getString("server-name", "Minecraft Server");
-                    info.add(config.getMessage("server-name", "&#199341&l{0}", serverName));
-                    info.add(config.getMessage("separator", "&7{0}", "─".repeat(serverName.length())));
+                    info.add(plugin.getLang().getMessage("server-name", serverName));
+                    info.add(plugin.getLang().getMessage("separator", "─".repeat(serverName.length())));
                     break;
 
                 case "minecraft-version":
-                    info.add(config.getMessage("minecraft-version", "&#199341Minecraft&f: {0}", Bukkit.getMinecraftVersion()));
+                    info.add(plugin.getLang().getMessage("minecraft-version", Bukkit.getMinecraftVersion()));
                     break;
 
                 case "server-version":
-                    info.add(config.getMessage("server-version", "&#199341Сервер&f: {0}", Bukkit.getName() + " " + Bukkit.getBukkitVersion()));
+                    info.add(plugin.getLang().getMessage("server-version", Bukkit.getName() + " " + Bukkit.getBukkitVersion()));
                     break;
 
                 case "players":
                     String players = Bukkit.getOnlinePlayers().size() + " / " + Bukkit.getMaxPlayers();
-                    info.add(config.getMessage("players", "&#199341Игроки&f: {0}", players));
+                    info.add(plugin.getLang().getMessage("players", players));
                     break;
 
                 case "plugins":
-                    info.add(config.getMessage("plugins", "&#199341Плагины&f: {0}", Bukkit.getPluginManager().getPlugins().length));
+                    info.add(plugin.getLang().getMessage("plugins", Bukkit.getPluginManager().getPlugins().length));
                     break;
 
                 case "memory":
@@ -65,34 +65,34 @@ public class InfoService {
                     long maxMemory = runtime.maxMemory() / 1048576; // в MB
                     long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1048576; // в MB
                     long percent = maxMemory > 0 ? (usedMemory * 100) / maxMemory : 0;
-                    info.add(config.getMessage("memory", "&#199341Память&f: {0}MB / {1}MB &7({2}%)", usedMemory, maxMemory, percent));
+                    info.add(plugin.getLang().getMessage("memory", usedMemory, maxMemory, percent));
                     break;
 
                 case "cpu":
                     OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
                     double cpuLoad = osBean.getProcessCpuLoad() * 100;
                     if (cpuLoad < 0) cpuLoad = 0; // Иногда может вернуть -1
-                    info.add(config.getMessage("cpu", "&#199341CPU&f: {0} &7({1}%)", osBean.getArch(), String.format("%.1f", cpuLoad)));
+                    info.add(plugin.getLang().getMessage("cpu", osBean.getArch(), String.format("%.1f", cpuLoad)));
                     break;
 
                 case "tps":
                     double tps = Bukkit.getTPS()[0];
                     TextColor tpsColor = tps > 18.0 ? NamedTextColor.WHITE : tps > 15.0 ? NamedTextColor.YELLOW : NamedTextColor.RED;
                     Component tpsComponent = Component.text(String.format("%.2f", tps), tpsColor);
-                    info.add(config.getMessage("tps", "&#199341TPS&f: ").append(tpsComponent));
+                    info.add(plugin.getLang().getMessage("tps").append(tpsComponent));
                     break;
 
                 case "uptime":
                     long uptimeMillis = System.currentTimeMillis() - serverStartTime;
-                    info.add(config.getMessage("uptime", "&#199341Аптайм&f: {0}", formatUptime(uptimeMillis)));
+                    info.add(plugin.getLang().getMessage("uptime", formatUptime(uptimeMillis)));
                     break;
 
                 case "worlds":
-                    info.add(config.getMessage("worlds", "&#199341Миры&f: {0}", Bukkit.getWorlds().size()));
+                    info.add(plugin.getLang().getMessage("worlds", Bukkit.getWorlds().size()));
                     break;
 
                 case "java-version":
-                    info.add(config.getMessage("java-version", "&#199341Java&f: {0}", System.getProperty("java.version")));
+                    info.add(plugin.getLang().getMessage("java-version", System.getProperty("java.version")));
                     break;
             }
         }
