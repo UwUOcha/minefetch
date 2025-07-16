@@ -1,7 +1,7 @@
 # Имя вашего плагина
 name: Minefetch
 # Версия плагина
-version: '2.3.0'
+version: '2.3.1'
 # Главный класс, который будет загружен
 main: ru.uwuocha.minefetch.Minefetch
 # Версия API сервера, для которой написан плагин

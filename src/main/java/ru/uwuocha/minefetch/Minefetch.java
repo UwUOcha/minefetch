@@ -38,6 +38,11 @@ public final class Minefetch extends JavaPlugin {
         getLogger().info("Плагин Minefetch успешно включен!");
     }
 
+    @Override
+    public void onDisable() {
+        getLogger().info("Плагин Minefetch отключен!");
+    }
+
     /**
      * Регистрирует команду /minefetch программно, используя CommandMap.
      * Это правильный способ для плагинов Paper/Purpur.
@@ -61,12 +66,6 @@ public final class Minefetch extends JavaPlugin {
             // Отключаем плагин, если команда не может быть зарегистрирована
             getServer().getPluginManager().disablePlugin(this);
         }
-    }
-
-
-    @Override
-    public void onDisable() {
-        getLogger().info("Плагин Minefetch отключен!");
     }
 
     /**
