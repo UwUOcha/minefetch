@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import ru.uwuocha.minefetch.Minefetch;
 import ru.uwuocha.minefetch.config.PluginConfig;
+import ru.uwuocha.minefetch.util.TimeFormatter;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ public class InfoService {
     private final Minefetch plugin;
     private final PluginConfig config;
     private final long serverStartTime;
+    private final TimeFormatter timeFormatter;
 
     public InfoService(Minefetch plugin, PluginConfig config) {
         this.plugin = plugin;
         this.config = config;
         this.serverStartTime = System.currentTimeMillis();
+        this.timeFormatter = new TimeFormatter(plugin.getLang());
     }
 
     /**
@@ -84,7 +87,7 @@ public class InfoService {
 
                 case "uptime":
                     long uptimeMillis = System.currentTimeMillis() - serverStartTime;
-                    info.add(plugin.getLang().getMessage("uptime", formatUptime(uptimeMillis)));
+                    info.add(plugin.getLang().getMessage("uptime", timeFormatter.formatUptime(uptimeMillis)));
                     break;
 
                 case "worlds":
@@ -98,23 +101,5 @@ public class InfoService {
         }
 
         return info;
-    }
-
-    /**
-     * Форматирует время в миллисекундах в читаемую строку (дни, часы, минуты).
-     */
-    private String formatUptime(long millis) {
-        long seconds = millis / 1000;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        long days = hours / 24;
-
-        if (days > 0) {
-            return String.format("%dд %dч %dм", days, hours % 24, minutes % 60);
-        } else if (hours > 0) {
-            return String.format("%dч %dм", hours, minutes % 60);
-        } else {
-            return String.format("%dм", minutes);
-        }
     }
 }

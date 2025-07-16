@@ -82,4 +82,12 @@ public class Lang {
         }
         return MessageUtils.colorize(messageTemplate);
     }
+
+    /**
+     * Получает доступ к конфигурации языка.
+     * @return FileConfiguration языкового файла
+     */
+    public FileConfiguration getConfig() {
+        return langConfig;
+    }
 }
