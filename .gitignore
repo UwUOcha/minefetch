@@ -1,5 +1,7 @@
 # User-specific stuff
 .idea/
+.factorypath
+.project
 
 *.iml
 *.ipr
