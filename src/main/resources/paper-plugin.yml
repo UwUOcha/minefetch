@@ -1,19 +1,11 @@
-# Имя вашего плагина
 name: Minefetch
-# Версия плагина
-version: '2.3.1'
-# Главный класс, который будет загружен
+version: '2.3.2'
 main: ru.uwuocha.minefetch.Minefetch
-# Версия API сервера, для которой написан плагин
 api-version: '1.21'
-# Автор плагина
 author: uwuocha
-# Описание
 description: "Плагин для отображения информации о сервере в стиле neofetch"
-# Веб-сайт
-website: "https://github.com/uwuocha/minefetch"
+website: "https://github.com/UwUOcha/minefetch"
 
-# Регистрация прав доступа
 permissions:
   minefetch.use:
     description: "Разрешение на использование команды /minefetch"

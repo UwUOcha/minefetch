@@ -4,12 +4,11 @@
 
 # Язык плагина (например, en_us, ru_ru)
 # Языковые файлы находятся в папке lang/
-lang: "ru_ru"
+lang: "en_us"
 
 # Название сервера (отображается в заголовке)
 server-name: "Minecraft Server"
 
-# Модули отображения информации
 # Модули отображения информации и их порядок.
 # Модули, не перечисленные здесь, не будут отображаться.
 # Доступные модули: server-name, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
