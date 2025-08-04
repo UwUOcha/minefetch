@@ -6,21 +6,21 @@
 # Языковые файлы находятся в папке lang/
 lang: "en_us"
 
-# Название сервера (отображается в заголовке)
-server-name: "Minecraft Server"
+# Название сервера
+server-name: "&#199341&lMinecraft Server"
 
-# Разделитель, отображаемый под названием сервера
-separator: "&f--------------------"
+# Разделитель
+separator: "&f&m                         "
 
 # Модули отображения информации и их порядок.
 # Модули, не перечисленные здесь, не будут отображаться.
-# Доступные модули: server-name, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
+# Доступные модули: server-name, separator, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
 modules:
   - "server-name"
   - "separator"
-  - "players"
   - "minecraft-version"
   - "server-version"
+  - "players"
   - "plugins"
   - "memory"
   - "cpu"

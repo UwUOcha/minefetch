@@ -43,7 +43,7 @@ public class InfoService {
             switch (moduleName) {
                 case "server-name":
                     String serverName = plugin.getConfig().getString("server-name", "Minecraft Server");
-                    info.add(plugin.getLang().getMessage("server-name", serverName));
+                    info.add(MessageUtils.colorize(serverName));
                     break;
 
                 case "separator":

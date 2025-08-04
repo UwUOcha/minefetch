@@ -1,10 +1,5 @@
 # Русский языковой файл для Minefetch
 
-# Заголовок сервера
-server-name: "&#199341&l{0}"
-
-
-
 # Информационные строки
 minecraft-version: "&#199341Minecraft&f: {0}"
 server-version: "&#199341Сервер&f: {0}"
