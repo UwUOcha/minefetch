@@ -17,7 +17,7 @@ separator: "&f--------------------"
 # Доступные модули: server-name, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
 modules:
   - "server-name"
-#  - "separator"
+  - "separator"
   - "players"
   - "minecraft-version"
   - "server-version"
