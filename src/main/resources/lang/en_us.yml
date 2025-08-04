@@ -3,8 +3,7 @@
 # Server header
 server-name: "&#199341&l{0}"
 
-# Separator under the header
-separator: "&7{0}"
+
 
 # Information lines
 minecraft-version: "&#199341Minecraft&f: {0}"

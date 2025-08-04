@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import ru.uwuocha.minefetch.Minefetch;
 import ru.uwuocha.minefetch.config.PluginConfig;
+import ru.uwuocha.minefetch.util.MessageUtils;
 import ru.uwuocha.minefetch.util.TimeFormatter;
 
 import java.lang.management.ManagementFactory;
@@ -43,7 +44,10 @@ public class InfoService {
                 case "server-name":
                     String serverName = plugin.getConfig().getString("server-name", "Minecraft Server");
                     info.add(plugin.getLang().getMessage("server-name", serverName));
-                    info.add(plugin.getLang().getMessage("separator", "─".repeat(serverName.length())));
+                    String separator = plugin.getConfig().getString("separator", "");
+                    if (!separator.isEmpty()) {
+                        info.add(MessageUtils.colorize(separator));
+                    }
                     break;
 
                 case "minecraft-version":
