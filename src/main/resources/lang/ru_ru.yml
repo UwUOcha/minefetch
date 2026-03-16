@@ -1,6 +1,6 @@
-# Русский языковой файл для Minefetch
+# Russian language file for Minefetch
 
-# Информационные строки
+# Information lines
 minecraft-version: "&#199341Minecraft&f: {0}"
 server-version: "&#199341Сервер&f: {0}"
 players: "&#199341Игроки&f: {0}"
@@ -12,13 +12,13 @@ uptime: "&#199341Аптайм&f: {0}"
 worlds: "&#199341Миры&f: {0}"
 java-version: "&#199341Java&f: {0}"
 
-# Единицы времени для форматирования аптайма
+# Time units for uptime formatting
 time-units:
   days: "д"
   hours: "ч"
   minutes: "м"
   seconds: "с"
 
-# Системные сообщения
+# System messages
 reload-success: "&aКонфигурация Minefetch перезагружена!"
 no-permission: "&cУ вас нет прав на перезагрузку конфигурации!"

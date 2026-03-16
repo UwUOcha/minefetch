@@ -5,40 +5,40 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 /**
- * Утилитарный класс для работы с сообщениями и цветами, используя API Kyori Adventure.
+ * Utility class for working with messages and colors using the Kyori Adventure API.
  */
 public final class MessageUtils {
 
-    // Serializer для преобразования старых цветовых кодов (&c, &l, и т.д.) и HEX (&#RRGGBB)
+    // Serializer for converting old color codes (&c, &l, etc.) and HEX (&#RRGGBB)
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.builder()
-            .character('&') // Указываем, что '&' является символом для цветовых кодов
-            .hexColors()    // Включаем поддержку HEX-цветов (формат &#RRGGBB)
+            .character('&') // Specify that '&' is the character for color codes
+            .hexColors()    // Enable support for HEX colors (format &#RRGGBB)
             .build();
 
-    // MiniMessage для более сложных форматов (если понадобится в будущем)
+    // MiniMessage for more complex formats (if needed in the future)
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
     private MessageUtils() {
-        // Приватный конструктор для утилитарного класса
+        // Private constructor for utility class
     }
 
     /**
-     * Преобразует строку с legacy-кодами (&) и HEX-кодами (&#RRGGBB) в Component.
-     * @param text Текст для преобразования.
-     * @return Готовый Component для отправки игроку.
+     * Converts a string with legacy codes (&) and HEX codes (&#RRGGBB) to a Component.
+     * @param text Text to convert.
+     * @return Ready Component to send to the player.
      */
     public static Component colorize(String text) {
         if (text == null || text.isEmpty()) {
             return Component.empty();
         }
-        // Теперь сериализатор правильно обработает и '&' и '&#RRGGBB'
+        // Now the serializer will correctly handle both '&' and '&#RRGGBB'
         return LEGACY_SERIALIZER.deserialize(text);
     }
 
     /**
-     * Преобразует строку в формате MiniMessage в Component.
-     * @param text Текст в формате MiniMessage.
-     * @return Готовый Component.
+     * Converts a string in MiniMessage format to a Component.
+     * @param text Text in MiniMessage format.
+     * @return Ready Component.
      */
     public static Component fromMiniMessage(String text) {
         if (text == null || text.isEmpty()) {

@@ -3,13 +3,13 @@ version: '2.4.0'
 main: ru.uwuocha.minefetch.Minefetch
 api-version: '1.21'
 author: uwuocha
-description: "Плагин для отображения информации о сервере в стиле neofetch"
+description: "Plugin for displaying server information in neofetch style"
 website: "https://github.com/UwUOcha/minefetch"
 
 permissions:
   minefetch.use:
-    description: "Разрешение на использование команды /minefetch"
+    description: "Permission to use the /minefetch command"
     default: true
   minefetch.reload:
-    description: "Разрешение на перезагрузку конфигурации"
+    description: "Permission to reload the configuration"
     default: op

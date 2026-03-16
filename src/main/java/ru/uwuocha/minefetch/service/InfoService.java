@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Сервис для сбора и форматирования информации о сервере.
+ * Service for gathering and formatting server information.
  */
 public class InfoService {
 
@@ -32,8 +32,8 @@ public class InfoService {
     }
 
     /**
-     * Собирает полную информацию о сервере на основе конфигурации.
-     * @return Список компонентов (Component) с информацией.
+     * Gathers complete server information based on the configuration.
+     * @return List of components (Component) containing the information.
      */
     public List<Component> getServerInfo() {
         List<Component> info = new ArrayList<>();
@@ -72,8 +72,8 @@ public class InfoService {
 
                 case "memory":
                     Runtime runtime = Runtime.getRuntime();
-                    long maxMemory = runtime.maxMemory() / 1048576; // в MB
-                    long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1048576; // в MB
+                    long maxMemory = runtime.maxMemory() / 1048576; // in MB
+                    long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1048576; // in MB
                     long percent = maxMemory > 0 ? (usedMemory * 100) / maxMemory : 0;
                     info.add(plugin.getLang().getMessage("memory", usedMemory, maxMemory, percent));
                     break;
@@ -81,7 +81,7 @@ public class InfoService {
                 case "cpu":
                     OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
                     double cpuLoad = osBean.getProcessCpuLoad() * 100;
-                    if (cpuLoad < 0) cpuLoad = 0; // Иногда может вернуть -1
+                    if (cpuLoad < 0) cpuLoad = 0; // Sometimes it might return -1
                     info.add(plugin.getLang().getMessage("cpu", String.format("%.1f", cpuLoad)));
                     break;
 

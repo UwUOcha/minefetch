@@ -3,7 +3,7 @@ package ru.uwuocha.minefetch.util;
 import ru.uwuocha.minefetch.config.Lang;
 
 /**
- * Утилитарный класс для форматирования времени с поддержкой локализации.
+ * Utility class for time formatting with localization support.
  */
 public class TimeFormatter {
 
@@ -14,9 +14,9 @@ public class TimeFormatter {
     }
 
     /**
-     * Форматирует время в миллисекундах в читаемую строку с учетом локализации.
-     * @param millis Время в миллисекундах
-     * @return Отформатированная строка времени
+     * Formats time in milliseconds into a readable string considering localization.
+     * @param millis Time in milliseconds
+     * @return Formatted time string
      */
     public String formatUptime(long millis) {
         long seconds = millis / 1000;
@@ -36,7 +36,7 @@ public class TimeFormatter {
     }
 
     /**
-     * Форматирует время с учетом единиц измерения из языкового файла.
+     * Formats time considering units from the language file.
      */
     private String formatTimeWithUnits(long value1, long value2, long value3, String unit1, String unit2, String unit3) {
         StringBuilder result = new StringBuilder();
@@ -63,7 +63,7 @@ public class TimeFormatter {
     }
 
     /**
-     * Получает сокращенную форму единицы времени из языкового файла.
+     * Gets the abbreviated form of a time unit from the language file.
      */
     private String getTimeUnit(String unit) {
         return lang.getConfig().getString("time-units." + unit, unit.substring(0, 1));

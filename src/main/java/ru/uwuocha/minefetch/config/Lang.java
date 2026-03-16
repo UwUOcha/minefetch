@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Управляет загрузкой и доступом к языковым файлам.
+ * Manages loading and providing access to language files.
  */
 public class Lang {
 
@@ -24,15 +24,15 @@ public class Lang {
     }
 
     /**
-     * Загружает языковой файл, указанный в config.yml.
-     * Если файл не найден, используется en_us.yml по умолчанию.
+     * Loads the language file specified in config.yml.
+     * If the file is not found, en_us.yml is used by default.
      */
     public void load() {
         String langName = plugin.getPluginConfig().getLang();
         String langFileName = langName + ".yml";
         String langResourcePath = "lang/" + langFileName;
 
-        // Проверяем, существует ли такой язык в ресурсах плагина
+        // Check if such language exists in the plugin resources
         if (plugin.getResource(langResourcePath) == null) {
             plugin.getLogger().warning("Language file '" + langFileName + "' not found in JAR. Defaulting to 'en_us.yml'.");
             langName = "en_us";
@@ -42,20 +42,20 @@ public class Lang {
 
         File langFile = new File(plugin.getDataFolder(), langResourcePath);
 
-        // Создаем директорию lang, если ее нет
+        // Create the lang directory if it doesn't exist
         if (!langFile.getParentFile().exists()) {
             langFile.getParentFile().mkdirs();
         }
 
-        // Сохраняем языковой файл из JAR, если он не существует в папке плагина
+        // Save the language file from the JAR if it doesn't exist in the plugin folder
         if (!langFile.exists()) {
             plugin.saveResource(langResourcePath, false);
         }
 
-        // Загружаем конфигурацию языка из файла
+        // Load language configuration from the file
         langConfig = YamlConfiguration.loadConfiguration(langFile);
 
-        // Устанавливаем значения по умолчанию из JAR, чтобы обеспечить наличие всех ключей
+        // Set default values from the JAR to ensure all keys are present
         try (InputStream defaultConfigStream = plugin.getResource(langResourcePath)) {
             if (defaultConfigStream != null) {
                 YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigStream, StandardCharsets.UTF_8));
@@ -68,10 +68,10 @@ public class Lang {
     }
 
     /**
-     * Получает сообщение из языкового файла и форматирует его с плейсхолдерами.
-     * @param key Ключ сообщения.
-     * @param placeholders Заменители для плейсхолдеров {0}, {1}, и т.д.
-     * @return Отформатированный Component для отправки игроку.
+     * Gets a message from the language file and formats it with placeholders.
+     * @param key The message key.
+     * @param placeholders Replacements for placeholders {0}, {1}, etc.
+     * @return Formatted Component to send to the player.
      */
     public Component getMessage(String key, Object... placeholders) {
         String messageTemplate = langConfig.getString(key, "§cMissing language key: " + key);
@@ -84,8 +84,8 @@ public class Lang {
     }
 
     /**
-     * Получает доступ к конфигурации языка.
-     * @return FileConfiguration языкового файла
+     * Gets access to the language configuration.
+     * @return FileConfiguration of the language file
      */
     public FileConfiguration getConfig() {
         return langConfig;

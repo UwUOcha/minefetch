@@ -13,29 +13,29 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Обработчик команды /minefetch, наследующийся от класса Command.
+ * Handler for the /minefetch command, inheriting from the Command class.
  */
 public class MinefetchCommand extends Command {
 
     private final Minefetch plugin;
 
     public MinefetchCommand(Minefetch plugin) {
-        // Конструктор суперкласса для определения свойств команды
+        // Superclass constructor to define command properties
         super("minefetch",
-                "Показать информацию о сервере.",
+                "Show server information.",
                 "/minefetch [reload]",
                 List.of("mf", "fetch"));
 
         this.plugin = plugin;
 
-        // Устанавливаем права доступа для команды
+        // Set access permissions for the command
         setPermission("minefetch.use");
     }
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!testPermission(sender)) {
-            // Сообщение об отсутствии прав отправится автоматически, если testPermission вернет false
+            // The no-permission message will be sent automatically if testPermission returns false
             return true;
         }
 
@@ -52,14 +52,14 @@ public class MinefetchCommand extends Command {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1 && sender.hasPermission("minefetch.reload")) {
-            // Предлагаем 'reload' как вариант автодополнения
+            // Suggest 'reload' as a tab completion option
             return Collections.singletonList("reload");
         }
         return Collections.emptyList();
     }
 
     /**
-     * Обрабатывает подкоманду 'reload'.
+     * Handles the 'reload' subcommand.
      */
     private void handleReload(CommandSender sender) {
         if (!sender.hasPermission("minefetch.reload")) {
@@ -72,11 +72,11 @@ public class MinefetchCommand extends Command {
     }
 
     /**
-     * Асинхронно собирает и отображает информацию о сервере.
+     * Asynchronously gathers and displays server info.
      */
     private void displayServerInfo(CommandSender sender) {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
-            // Асинхронно собираем данные
+            // Asynchronously gather data
             boolean isPlayer = sender instanceof org.bukkit.entity.Player;
             List<String> rawAscii = isPlayer ? plugin.getPluginConfig().getAsciiArtLines() : plugin.getPluginConfig().getConsoleAsciiArtLines();
             
@@ -85,11 +85,11 @@ public class MinefetchCommand extends Command {
                     .toList();
             final List<Component> infoComponents = plugin.getInfoService().getServerInfo();
 
-            // Формируем финальное сообщение
+            // Form the final message
             List<Component> finalMessage = new ArrayList<>();
             int maxLines = Math.max(asciiComponents.size(), infoComponents.size());
 
-            String padding = isPlayer ? "              " : "                            "; // 14 пробелов или 28 пробелов
+            String padding = isPlayer ? "              " : "                            "; // 14 spaces or 28 spaces
 
             for (int i = 0; i < maxLines; i++) {
                 TextComponent.Builder lineBuilder = Component.text();
@@ -97,7 +97,7 @@ public class MinefetchCommand extends Command {
                 if (i < asciiComponents.size()) {
                     lineBuilder.append(asciiComponents.get(i));
                 } else {
-                    // Добавляем отступ, если ASCII-арт короче, чем инфо-блок
+                    // Add padding if ASCII art is shorter than the info block
                     lineBuilder.append(Component.text(padding));
                 }
 
@@ -107,7 +107,7 @@ public class MinefetchCommand extends Command {
                 finalMessage.add(lineBuilder.build());
             }
 
-            // Синхронно отправляем сообщение игроку
+            // Synchronously send the message to the player
             plugin.getServer().getScheduler().runTask(plugin, () -> {
                 for (Component line : finalMessage) {
                     sender.sendMessage(line);

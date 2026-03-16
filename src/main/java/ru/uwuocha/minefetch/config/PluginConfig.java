@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Управляет конфигурацией плагина (config.yml) и загрузкой ASCII-арта.
+ * Manages plugin configuration (config.yml) and ASCII art loading.
  */
 public class PluginConfig {
 
@@ -28,7 +28,7 @@ public class PluginConfig {
     }
 
     /**
-     * Загружает или перезагружает конфигурацию и ASCII-арт.
+     * Loads or reloads the configuration and ASCII art.
      */
     public void load() {
         plugin.saveDefaultConfig();
@@ -59,41 +59,41 @@ public class PluginConfig {
     }
 
     /**
-     * Возвращает строки ASCII-арта.
-     * @return Список строк.
+     * Returns ASCII art lines.
+     * @return List of strings.
      */
     public List<String> getAsciiArtLines() {
         return Collections.unmodifiableList(asciiArtLines);
     }
 
     /**
-     * Возвращает строки ASCII-арта для консоли (удвоенные символы).
-     * @return Список строк.
+     * Returns ASCII art lines for console (doubled characters).
+     * @return List of strings.
      */
     public List<String> getConsoleAsciiArtLines() {
         return Collections.unmodifiableList(consoleAsciiArtLines);
     }
 
     /**
-     * Проверяет, включен ли определенный модуль в конфигурации.
-     * @param moduleName Имя модуля.
-     * @return true, если модуль включен.
+     * Checks if a specific module is enabled in the configuration.
+     * @param moduleName Module name.
+     * @return true if the module is enabled.
      */
     public boolean isModuleEnabled(String moduleName) {
         return enabledModules.contains(moduleName);
     }
 
     /**
-     * Возвращает упорядоченный список включенных модулей.
-     * @return Список имен модулей.
+     * Returns an ordered list of enabled modules.
+     * @return List of module names.
      */
     public List<String> getOrderedModules() {
         return Collections.unmodifiableList(orderedModules);
     }
 
     /**
-     * Возвращает язык, выбранный в конфигурации.
-     * @return Строка с названием языка (например, "en_us").
+     * Returns the language selected in the configuration.
+     * @return String with the language name (e.g., "en_us").
      */
     public String getLang() {
         return lang;

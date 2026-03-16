@@ -10,8 +10,8 @@ import ru.uwuocha.minefetch.service.InfoService;
 import java.lang.reflect.Field;
 
 /**
- * Главный класс плагина Minefetch.
- * Отвечает за инициализацию и отключение плагина, а также за управление его компонентами.
+ * Main class of the Minefetch plugin.
+ * Responsible for plugin initialization, shutdown, and component management.
  */
 public final class Minefetch extends JavaPlugin {
 
@@ -21,18 +21,18 @@ public final class Minefetch extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Инициализация менеджера конфигурации
+        // Initialize configuration manager
         this.pluginConfig = new PluginConfig(this);
         pluginConfig.load();
 
-        // Инициализация языкового менеджера
+        // Initialize language manager
         this.lang = new Lang(this);
         lang.load();
 
-        // Инициализация сервиса для сбора информации
+        // Initialize info gathering service
         this.infoService = new InfoService(this, pluginConfig);
 
-        // Регистрация команды программно
+        // Register command programmatically
         registerCommand();
 
         getLogger().info("Плагин Minefetch успешно включен!");
@@ -44,32 +44,32 @@ public final class Minefetch extends JavaPlugin {
     }
 
     /**
-     * Регистрирует команду /minefetch программно, используя CommandMap.
-     * Это правильный способ для плагинов Paper/Purpur.
+     * Registers the /minefetch command programmatically using CommandMap.
+     * This is the correct way for Paper/Purpur plugins.
      */
     private void registerCommand() {
         try {
-            // Получаем доступ к CommandMap сервера через рефлексию
+            // Get access to the server's CommandMap via reflection
             final Field bukkitCommandMap = getServer().getClass().getDeclaredField("commandMap");
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(getServer());
 
-            // Создаем и регистрируем нашу команду
+            // Create and register our command
             commandMap.register(
-                    "minefetch", // Имя команды, которое будет использоваться как префикс по умолчанию
+                    "minefetch", // Command name, used as default prefix
                     new MinefetchCommand(this)
             );
             getLogger().info("Команда /minefetch успешно зарегистрирована.");
         } catch (NoSuchFieldException | IllegalAccessException e) {
             getLogger().severe("Не удалось зарегистрировать команду /minefetch! Плагин не будет работать корректно.");
             e.printStackTrace();
-            // Отключаем плагин, если команда не может быть зарегистрирована
+            // Disable the plugin if the command cannot be registered
             getServer().getPluginManager().disablePlugin(this);
         }
     }
 
     /**
-     * Перезагружает конфигурацию плагина и языковые файлы.
+     * Reloads plugin configuration and language files.
      */
     public void reload() {
         pluginConfig.load();
@@ -77,7 +77,7 @@ public final class Minefetch extends JavaPlugin {
     }
 
     /**
-     * Возвращает экземпляр менеджера конфигурации.
+     * Returns the configuration manager instance.
      * @return PluginConfig
      */
     public PluginConfig getPluginConfig() {
@@ -85,7 +85,7 @@ public final class Minefetch extends JavaPlugin {
     }
 
     /**
-     * Возвращает экземпляр сервиса сбора информации.
+     * Returns the info gathering service instance.
      * @return InfoService
      */
     public InfoService getInfoService() {
@@ -93,8 +93,8 @@ public final class Minefetch extends JavaPlugin {
     }
 
     /**
-     * Предоставляет доступ к языковым сообщениям.
-     * @return Экземпляр Lang.
+     * Provides access to language messages.
+     * @return Lang instance.
      */
     public Lang getLang() {
         return lang;

@@ -1,20 +1,20 @@
-# Конфигурация Minefetch
-# Настройки отображения информации о сервере
-# Поддержка цветов: & (стандартные коды) и &#RRGGBB (HEX цвета)
+# Minefetch configuration
+# Server information display settings
+# Color support: & (standard codes) and &#RRGGBB (HEX colors)
 
-# Язык плагина (например, en_us, ru_ru)
-# Языковые файлы находятся в папке lang/
+# Plugin language (e.g., en_us, ru_ru)
+# Language files are located in the lang/ folder
 lang: "en_us"
 
-# Название сервера
+# Server name
 server-name: "&#199341&lMinecraft Server"
 
-# Разделитель
+# Separator
 separator: "&f&m                         "
 
-# Модули отображения информации и их порядок.
-# Модули, не перечисленные здесь, не будут отображаться.
-# Доступные модули: server-name, separator, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
+# Information display modules and their order.
+# Modules not listed here will not be displayed.
+# Available modules: server-name, separator, minecraft-version, server-version, players, plugins, memory, cpu, tps, uptime, worlds, java-version
 modules:
   - "server-name"
   - "separator"
@@ -29,10 +29,10 @@ modules:
   - "worlds"
   - "java-version"
 
-# Настройки отображения
+# Display settings
 display:
-  # Использовать цветовое кодирование
+  # Use color coding
   colors: true
 
-  # Формат отображения даты
+  # Date display format
   date-format: "dd.MM.yyyy HH:mm:ss"
