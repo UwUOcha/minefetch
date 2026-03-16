@@ -6,7 +6,7 @@ server-version: "&#199341Server&f: {0}"
 players: "&#199341Players&f: {0}"
 plugins: "&#199341Plugins&f: {0}"
 memory: "&#199341Memory&f: {0}MB / {1}MB &7({2}%)"
-cpu: "&#199341CPU&f: {0} &7({1}%)"
+cpu: "&#199341CPU&f: {0}%"
 tps: "&#199341TPS&f: "
 uptime: "&#199341Uptime&f: {0}"
 worlds: "&#199341Worlds&f: {0}"
@@ -17,6 +17,7 @@ time-units:
   days: "d"
   hours: "h"
   minutes: "m"
+  seconds: "s"
 
 # System messages
 reload-success: "&aMinefetch configuration reloaded!"

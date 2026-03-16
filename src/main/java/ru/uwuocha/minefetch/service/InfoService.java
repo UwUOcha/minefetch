@@ -82,7 +82,7 @@ public class InfoService {
                     OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
                     double cpuLoad = osBean.getProcessCpuLoad() * 100;
                     if (cpuLoad < 0) cpuLoad = 0; // Иногда может вернуть -1
-                    info.add(plugin.getLang().getMessage("cpu", osBean.getArch(), String.format("%.1f", cpuLoad)));
+                    info.add(plugin.getLang().getMessage("cpu", String.format("%.1f", cpuLoad)));
                     break;
 
                 case "tps":

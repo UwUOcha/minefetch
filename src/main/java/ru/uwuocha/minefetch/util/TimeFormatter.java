@@ -28,8 +28,10 @@ public class TimeFormatter {
             return formatTimeWithUnits(days, hours % 24, minutes % 60, "days", "hours", "minutes");
         } else if (hours > 0) {
             return formatTimeWithUnits(hours, minutes % 60, 0, "hours", "minutes", null);
-        } else {
+        } else if (minutes > 0) {
             return formatTimeWithUnits(minutes, 0, 0, "minutes", null, null);
+        } else {
+            return seconds + getTimeUnit("seconds");
         }
     }
 
