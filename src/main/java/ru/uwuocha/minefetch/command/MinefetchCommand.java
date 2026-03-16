@@ -77,7 +77,10 @@ public class MinefetchCommand extends Command {
     private void displayServerInfo(CommandSender sender) {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             // Асинхронно собираем данные
-            final List<Component> asciiComponents = plugin.getPluginConfig().getAsciiArtLines().stream()
+            boolean isPlayer = sender instanceof org.bukkit.entity.Player;
+            List<String> rawAscii = isPlayer ? plugin.getPluginConfig().getAsciiArtLines() : plugin.getPluginConfig().getConsoleAsciiArtLines();
+            
+            final List<Component> asciiComponents = rawAscii.stream()
                     .map(MessageUtils::colorize)
                     .toList();
             final List<Component> infoComponents = plugin.getInfoService().getServerInfo();
@@ -86,6 +89,8 @@ public class MinefetchCommand extends Command {
             List<Component> finalMessage = new ArrayList<>();
             int maxLines = Math.max(asciiComponents.size(), infoComponents.size());
 
+            String padding = isPlayer ? "              " : "                            "; // 14 пробелов или 28 пробелов
+
             for (int i = 0; i < maxLines; i++) {
                 TextComponent.Builder lineBuilder = Component.text();
 
@@ -93,7 +98,7 @@ public class MinefetchCommand extends Command {
                     lineBuilder.append(asciiComponents.get(i));
                 } else {
                     // Добавляем отступ, если ASCII-арт короче, чем инфо-блок
-                    lineBuilder.append(Component.text("              "));
+                    lineBuilder.append(Component.text(padding));
                 }
 
                 if (i < infoComponents.size()) {

@@ -2,9 +2,10 @@ package ru.uwuocha.minefetch.config;
 
 import ru.uwuocha.minefetch.Minefetch;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -17,24 +18,10 @@ public class PluginConfig {
 
     private final Minefetch plugin;
     private List<String> asciiArtLines;
+    private List<String> consoleAsciiArtLines;
     private List<String> orderedModules;
     private Set<String> enabledModules;
     private String lang;
-
-    private static final List<String> DEFAULT_ASCII_ART = List.of(
-            "&#199341████&#000000████&#199341████",
-            "&#199341████&#000000████&#199341████",
-            "&#199341████&#000000████&#199341████",
-            "&#199341████&#000000████&#199341████",
-            "&#000000████&#199341████&#000000████",
-            "&#000000████&#199341████&#000000████",
-            "&#000000██&#199341████████&#000000██",
-            "&#000000██&#199341████████&#000000██",
-            "&#000000██&#199341████████&#000000██",
-            "&#000000██&#199341████████&#000000██",
-            "&#000000██&#199341██&#000000████&#199341██&#000000██",
-            "&#000000██&#199341██&#000000████&#199341██&#000000██"
-    );
 
     public PluginConfig(Minefetch plugin) {
         this.plugin = plugin;
@@ -52,22 +39,22 @@ public class PluginConfig {
         this.enabledModules = new HashSet<>(this.orderedModules);
     }
 
-    /**
-     * Загружает ASCII-арт из файла ascii.txt или использует стандартный.
-     */
     private void loadAsciiArt() {
-        Path asciiFile = plugin.getDataFolder().toPath().resolve("ascii.txt");
+        File asciiFile = new File(plugin.getDataFolder(), "ascii.yml");
 
-        if (Files.exists(asciiFile)) {
-            try {
-                this.asciiArtLines = Files.readAllLines(asciiFile);
-                plugin.getLogger().info("Загружен пользовательский ASCII-арт из ascii.txt");
-            } catch (IOException e) {
-                plugin.getLogger().warning("Не удалось прочитать ascii.txt: " + e.getMessage() + ". Используется стандартный арт.");
-                this.asciiArtLines = DEFAULT_ASCII_ART;
-            }
+        if (!asciiFile.exists()) {
+            plugin.saveResource("ascii.yml", false);
+        }
+
+        FileConfiguration asciiConfig = YamlConfiguration.loadConfiguration(asciiFile);
+
+        this.asciiArtLines = asciiConfig.getStringList("player");
+        this.consoleAsciiArtLines = asciiConfig.getStringList("console");
+
+        if (this.asciiArtLines.isEmpty() && this.consoleAsciiArtLines.isEmpty()) {
+            plugin.getLogger().warning("Списки player и console в ascii.yml пусты или отсутствуют. Используется пустой арт.");
         } else {
-            this.asciiArtLines = DEFAULT_ASCII_ART;
+            plugin.getLogger().info("Загружен ASCII-арт из ascii.yml");
         }
     }
 
@@ -77,6 +64,14 @@ public class PluginConfig {
      */
     public List<String> getAsciiArtLines() {
         return Collections.unmodifiableList(asciiArtLines);
+    }
+
+    /**
+     * Возвращает строки ASCII-арта для консоли (удвоенные символы).
+     * @return Список строк.
+     */
+    public List<String> getConsoleAsciiArtLines() {
+        return Collections.unmodifiableList(consoleAsciiArtLines);
     }
 
     /**
